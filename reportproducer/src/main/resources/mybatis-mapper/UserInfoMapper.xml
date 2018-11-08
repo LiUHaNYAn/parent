@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaocheng.reportproducer.mapper.UserInfoMapper">
+    <resultMap id="userinfoModel" type="com.gaocheng.reportproducer.domain.UserInfo">
+        <id column="ID" property="id"/>
+        <result property="username" column="USERNAME"/>
+        <result property="pwd" column="PWD"/>
+        <result property="organization_id" column="ORGANIZATION_ID"/>
+        <result property="role_id" column="ROLE_ID"/>
+        <result property="realname" column="REALNAME"/>
+        <result property="sex" column="SEX"/>
+        <result property="phone" column="PHONE"/>
+        <result property="remark" column="REMARK"/>
+        <result property="state" column="STATE"/>
+    </resultMap>
+    <sql id="sqlall">
+         ID ,USERNAME ,PWD,ORGANIZATION_ID ,ROLE_ID ,REALNAME,SEX ,PHONE,REMARK,STATE
+    </sql>
+    <select id="selectAll" resultMap="userinfoModel">
+        SELECT
+         <include refid="sqlall"/>
+         FROM  XTGL_USERINFO
+    </select>
+    <select id="selectByName" resultMap="userinfoModel">
+        SELECT
+        <include refid="sqlall"/>
+        FROM  XTGL_USERINFO WHERE ID=#{id}
+    </select>
+    <insert id="insertUser" parameterType="com.gaocheng.reportproducer.domain.UserInfo">
+        insert into  xtgl_userinfo(<include refid="sqlall"/>,OPERATION_ID,OPERATIONDATE)values (#{id},#{username},#{pwd},#{organization_id},#{role_id},#{realname},#{sex},#{phone},#{remark},#{state},#{operation_id},#{operationdate})
+    </insert>
+</mapper>

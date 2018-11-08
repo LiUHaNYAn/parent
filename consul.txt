@@ -1,0 +1,2 @@
+consul agent -ui  -data-dir=/usr/data/server2/ -client 192.168.1.25 -bind 0.0.0.0 -server -join 192.168.1.23 -node server25
+ consul agent -ui -bootstrap-expect 2 -data-dir=/usr/data/ -client 192.168.1.23 -bind 0.0.0.0 -server
