@@ -2,6 +2,7 @@ package com.gaocheng.reportproducer.controller;
 
 import com.gaocheng.reportproducer.domain.UserInfo;
 import com.gaocheng.reportproducer.mapper.UserInfoMapper;
+import com.gaocheng.reportproducer.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @RestController
 public class HomeController {
     @Autowired
-    private UserInfoMapper userInfoMapper;
+    private UserInfoService userInfoMapper;
     @RequestMapping("/")
     public Object index(){
         return  userInfoMapper.selectAll();
