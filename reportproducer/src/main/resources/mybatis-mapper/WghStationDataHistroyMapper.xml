@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaocheng.reportproducer.mapper.WghStationDataHistroyMapper">
+
+    <resultMap id="wghStationDataHistroyModel" type="com.gaocheng.reportproducer.domain.WghStationDataHistroy">
+        <id column="ID" property="id"/>
+        <result property="paramName" column="PARAMNAME"/>
+        <result property="stationName" column="STATIONNAME"/>
+        <result property="value" column="VALUE" javaType="double" jdbcType="NUMERIC"/>
+        <result property="operationDate" column="OPERATIONDATE"/>
+        <result property="datatime" column="DATATIME"/>
+    </resultMap>
+
+    <select id="selectByTime" resultMap="wghStationDataHistroyModel">
+       select a.DATATIME,a.OPERATIONDATE,b.NAME STATIONNAME,a.VALUE,c.dictionaryname PARAMNAME from WGH_STATIONDATAHISTROY a join  WGH_STATIONINFORMATION b on b.ID=a.STATIONID
+join XTGL_DICTIONARY c on c.id=a.paramid where  a.DATATIME<![CDATA[>]]>TO_DATE(#{starttime},'yyyy-mm-dd hh24:mi:ss') and
+        a.DATATIME <![CDATA[<]]>TO_DATE(#{endtime},'yyyy-mm-dd hh24:mi:ss')
+    </select>
+
+</mapper>

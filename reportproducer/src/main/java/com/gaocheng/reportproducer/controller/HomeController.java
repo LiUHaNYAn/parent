@@ -1,21 +1,29 @@
 package com.gaocheng.reportproducer.controller;
 
 import com.gaocheng.reportproducer.domain.UserInfo;
+import com.gaocheng.reportproducer.domain.WghStationDataHistroy;
 import com.gaocheng.reportproducer.mapper.UserInfoMapper;
 import com.gaocheng.reportproducer.service.UserInfoService;
+import com.gaocheng.reportproducer.service.WghStationDataHistroyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 public class HomeController {
     @Autowired
     private UserInfoService userInfoMapper;
+    @Autowired
+    private WghStationDataHistroyService wghStationDataHistroyService;
     @RequestMapping("/")
     public Object index(){
         return  userInfoMapper.selectAll();
@@ -46,7 +54,11 @@ public class HomeController {
         java.sql.Date  data1=new java.sql.Date(date.getTime());
         userInfo1.setOperationdate(data1);
         userInfoMapper.insertUser(userInfo1);
-
         return  true;
+    }
+    @RequestMapping(value = "/data")
+    public List<WghStationDataHistroy> selectHisdataByTime(String starttime, String endtime){
+
+            return wghStationDataHistroyService.selectByTime(starttime,endtime);
     }
 }
